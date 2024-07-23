@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wifejak Coin ($WIFE) on Solana</title>
+    <style>
+        body, html {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, rgb(191, 254, 254), rgb(238, 154, 244));
+            color: #fff;
+        }
+        header {
+            background: #222;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            letter-spacing: 2px;
+        }
+        nav {
+            background: #444;
+            padding: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffa;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 40px 0;
+        }
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        .section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            padding: 10px;
+            display: inline-block;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
+        }
+
+        #contract-address {
+            display: inline-block;
+            word-wrap: break-word; /* Allow wrapping for long words */
+            max-width: 100%; /* Ensure it doesn't overflow */
+            font-size: 1rem; /* Default font size */
+            text-align: center; /* Center the text */
+        }
+
+        #copy-button {
+            background-color: #ffa;
+            border: none;
+            color: #222;
+            padding: 5px 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            vertical-align: middle;
+        }
+
+        #copy-button:hover {
+            background-color: rgb(202, 202, 157);
+        }
+
+        #copy-icon {
+            display: inline;
+        }
+
+        #copied-text {
+            display: none;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .feature {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin: 10px;
+            padding: 20px;
+            width: calc(33% - 40px);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .feature:hover {
+            transform: scale(1.05);
+        }
+        .feature img {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        .emoji-board-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .emoji-board-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .emoji-board-container .container {
+            background: rgba(83, 106, 119, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .emoji-board {
+            flex: 1;
+        }
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* Ensure there are 6 columns */
+            grid-template-rows: repeat(2, 1fr); /* Create 2 rows */
+            gap: 10px;
+            justify-items: center; /* Center items horizontally */
+            align-items: center; /* Center items vertically */
+        }
+
+        .emoji-grid img {
+            width: 100%;
+            height: auto;
+            max-width: 50px;
+            max-height: 50px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            object-fit: contain;
+        }
+        .emoji-grid img:hover {
+            transform: scale(1.2);
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg); /* Rotate counter-clockwise */
+            }
+        }
+
+        .display-area {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            border: 10px solid #d2a679; /* Wooden frame color */
+            border-radius: 15px; /* Rounded corners */
+            overflow: hidden;
+            background: #a0d9ff; /* Soft blue background */
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3); /* Inner shadow for depth */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .display-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s, transform 1s;
+        }
+        .display-area img.active {
+            opacity: 1;
+            transform: rotate(360deg);
+        }
+
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .roadmap h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .roadmap ul {
+            list-style: none;
+            padding: 0;
+        }
+        .roadmap li {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            text-align: left;
+            font-size: 1.2rem;
+        }
+        footer {
+            background: #222;
+            padding: 20px;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+        .timeline {
+            position: relative;
+            margin: 20px 0;
+            padding: 40px 0;
+            list-style: none;
+        }
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #ffa;
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        .timeline-item:before {
+            content: attr(data-date);
+            position: absolute;
+            top: 20px;
+            left: -100px;
+            width: 80px;
+            padding: 10px;
+            text-align: center;
+            background: rgb(220, 220, 145);
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .timeline-item:nth-child(even):before {
+            left: auto;
+            right: -100px;
+        }
+        .timeline-icon {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: #ffa;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 1.5rem;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .timeline-content {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .timeline-item:nth-child(odd) .timeline-content {
+            transform: translateX(-20px);
+        }
+        .timeline-item:nth-child(even) .timeline-content {
+            transform: translateX(20px);
+        }
+        .timeline-item:hover .timeline-content {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .social-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            max-width: 720px;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            color: #222;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-button img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .social-button:hover {
+            background-color: #ffa;
+            transform: translateY(-2px);
+        }
+        #coin-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        
+        .emoji-spotify-flex-container {
+            display: flex;
+            gap: 30px; /* Space between the emoji board and Spotify embed */
+        }
+
+        .emoji-board, .spotify-embed {
+            flex: 1;
+        }
+
+        .emoji-board {
+            width: 95%;
+            height:auto;
+            max-width: 125%;
+        }
+
+        .spotify-embed {
+            width: 95%;
+            height:auto;
+            max-width: 125%;
+        }
+
+        /* Twitter Scroll Container with Autumn Theme */
+        .twitter-scroll-container {
+            width: 100%;
+            max-width: 600px;
+            min-width: 600px;
+            height: 700px;
+            overflow-y: scroll;
+            border: 2px solid #de54b7; /* Autumn brown border */
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(65, 43, 63, 0.8), rgba(164, 105, 215, 0.8)); /* Autumn gradient */
+            backdrop-filter: blur(10px); /* Smooth background */
+        }
+
+        /* Custom Scrollbar for WebKit-based browsers (Chrome, Safari) */
+        .twitter-scroll-container::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .twitter-scroll-container::-webkit-scrollbar-track {
+            background: rgba(65, 43, 63, 0.8); /* Darker background for the track */
+            border-radius: 10px;
+        }
+
+        .twitter-scroll-container::-webkit-scrollbar-thumb {
+            background: rgba(164, 105, 215, 0.8); /* Lighter color for the thumb */
+            border-radius: 10px;
+            border: 2px solid #de54b7; /* Border to match the container */
+        }
+
+        .twitter-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(167, 128, 187, 0.8); /* Slightly lighter on hover */
+        }
+
+        /* Custom Scrollbar for Firefox */
+        .twitter-scroll-container {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(164, 105, 215, 0.8) rgba(65, 43, 63, 0.8);
+        }
+
+        /* Twitter Timeline */
+        .twitter-timeline {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Section Header */
+        #twitter-feed h2 {
+            font-size: 2.5rem;
+            color: #493051; /* Autumn brown text color */
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+            background: rgba(167, 128, 187, 0.8); /* Autumn orange background */
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            position: relative;
+            margin: 0 auto;
+        }
+
+
+        @media (max-width: 768px) {
+
+            #contract-address {
+                font-size: 0.7rem; /* Even smaller font size */
+            }
+
+            #copy-button {
+                padding: 4px 6px;
+                font-size: 0.7rem; /* Smaller font size */
+                margin-left: 4px;
+            }
+
+            .twitter-scroll-container {
+                max-width: 500px;
+                scale:70%;
+            }
+
+            .feature {
+                width: calc(100% - 40px);
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding: 10px;
+                box-sizing: border-box;
+                left: 0 !important;
+            }
+
+            .timeline-item:before {
+                left: -10px;
+                right: auto !important;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content, 
+            .timeline-item:nth-child(odd) .timeline-content {
+                transform: translateX(0) !important;
+                opacity: 1 !important;
+            }
+
+            .timeline:before {
+                left: 10px;
+            }
+
+            .timeline-icon {
+                left: 20px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                padding-left: 40px;
+            }
+
+            .timeline-item[data-date="L4 2024"] {
+                margin-bottom: 30px;
+            }
+            
+            .timeline-item[data-date="L4 2024"]:before {
+                left: -10px;
+                right: auto !important;
+            }
+
+            .timeline-item[data-date="L2 2024"] {
+                margin-bottom: 30px;
+            }
+            
+            .timeline-item[data-date="L2 2024"]:before {
+                left: -10px;
+                right: auto !important;
+            }
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Wifejak Coin ($WIFE) on Solana</h1>
+    </header>
+    <nav>
+        <a href="#intro">Wifejak</a>
+        <a href="#features">Features</a>
+        <a href="#emoji-board">Playground</a>
+        <a href="#roadmap">Roadmap</a>
+    </nav>
+    <div class="container">
+        <section id="intro" class="section">
+            <h2>Wifejak ($wife)</h2>
+            <p>The original Wifejak memecoin on Solana!</p>
+            <img src="so-happy-gif.gif" alt="So Happy Gif" style="max-width: 100%; border-radius: 10px; margin: 20px 0;">
+            <p>
+                CA: <span id="contract-address">4y3oUrsJfSp431R3wJrWiaLxRPsnYtpkVJmoV2bYpBiy</span>
+                <button id="copy-button">
+                    <span id="copy-icon">📋</span>
+                    <span id="copied-text" style="display: none;">Copied!</span>
+                </button>
+            </p>
+            <div id="coin-container"></div>
+        </section>
+        
+        <section id="social-links" class="section">
+            <div class="social-buttons">
+                <a href="https://twitter.com/Wifejaksolana" class="social-button">
+                    <img src="X.png" alt="Twitter">
+                    Twitter
+                </a>
+                <a href="https://t.me/+6e1fk9TLKD1kNDVh" class="social-button">
+                    <img src="telegram.png" alt="Telegram">
+                    Telegram
+                </a>
+                <a href="https://debuggity.github.io/wifejak_maker/" class="social-button">
+                    <img src="meme.png" alt="Meme Generator">
+                    Meme Generator
+                </a>
+                <a href="https://coinmarketcap.com/currencies/wifejak" class="social-button">
+                    <img src="marketcap.png" alt="CoinMarketCap">
+                    CoinMarketCap
+                </a>
+                <a href="https://www.coingecko.com/en/coins/wifejak" class="social-button">
+                    <img src="coingecko_logo.png" alt="CoinGecko">
+                    CoinGecko
+                </a>
+                <a href="https://dexscreener.com/solana/wifejak" class="social-button">
+                    <img src="dexscreen.png" alt="DexScreener">
+                    DexScreener
+                </a>
+                <a href="https://www.dextools.io/app/solana/wifejak" class="social-button">
+                    <img src="dexscreen.png" alt="DexTools">
+                    DexTools
+                </a>
+            </div>
+        </section>
+        
+        <section id="features" class="section">
+            <h2>Features</h2>
+            <div class="features">
+                <div class="feature">
+                    <img src="excited.png" alt="Excited">
+                    <h3>Community Driven</h3>
+                    <p>Join a vibrant and active community that shapes the future of Wifejak Coin. Together, we drive innovation and create value for all members.</p>
+                </div>
+                <div class="feature">
+                    <img src="flame-eyes.png" alt="Flame Eyes">
+                    <h3>Memes and Content</h3>
+                    <p>Experience the best in meme culture and top-tier content production. Wifejak Coin stands at the forefront of creating and sharing the most engaging and entertaining content.</p>
+                </div>
+                <div class="feature">
+                    <img src="very-happy.png" alt="Very Happy">
+                    <h3>Long-Term Leadership</h3>
+                    <p>Commit to a project with a vision for long-term success. With dedicated leadership and a clear roadmap, Wifejak Coin aims to establish itself as a leader in the cryptocurrency space.</p>
+                </div>
+            </div>
+            <br>
+
+            <h2>DexScreener</h2>
+            <style>#dexscreener-embed{position:relative;width:100%;padding-bottom:125%;}@media(min-width:1400px){#dexscreener-embed{padding-bottom:65%;}}#dexscreener-embed iframe{position:absolute;width:100%;height:100%;top:0;left:0;border:0;}</style><div id="dexscreener-embed"><iframe src="https://dexscreener.com/solana/6B7HaigdotRyb3h5YQ487zfnTueEmUhXLLPccaaNq1ei?embed=1&theme=dark"></iframe></div>
+        </section>
+
+        <section id="emoji-board" class="section emoji-board-container">
+        <h2>Playground</h2>
+        <div class="emoji-spotify-flex-container">
+            <div class="emoji-board">
+                <div class="display-area">
+                    <img src="./assets/apu.png" alt="blushing" class="active">
+                    <img src="./assets/artist.png" alt="celebrating">
+                    <img src="./assets/goblin.png" alt="crying">
+                    <img src="./assets/princess.png" alt="dumb">
+                    <img src="./assets/worker.png" alt="excited">
+                    <img src="./assets/zelda.png" alt="eye-roll">
+                    <img src="./assets/pearl.png" alt="flame-eyes">
+                    <img src="./assets/chef.png" alt="laughing">
+                    <img src="./assets/crying.png" alt="regular">
+                    <img src="./assets/scuba.png" alt="thicc">
+                    <img src="./assets/goth.png" alt="ugh-yuck">
+                    <img src="./assets/kiss.png" alt="very-happy">
+                </div>
+                <div class="emoji-grid">
+                    <img src="./assets/apu.png" alt="blushing" style="grid-row: 1; grid-column: span 1;">
+                    <img src="./assets/artist.png" alt="celebrating" style="grid-row: 1; grid-column: span 1;">
+                    <img src="./assets/goblin.png" alt="crying" style="grid-row: 1; grid-column: span 1;">
+                    <img src="./assets/princess.png" alt="dumb" style="grid-row: 1; grid-column: span 1;">
+                    <img src="./assets/worker.png" alt="excited" style="grid-row: 1; grid-column: span 1;">
+                    <img src="./assets/zelda.png" alt="eye-roll" style="grid-row: 1; grid-column: span 1;">
+                    <img src="./assets/pearl.png" alt="flame-eyes" style="grid-row: 2; grid-column: span 1;">
+                    <img src="./assets/chef.png" alt="laughing" style="grid-row: 2; grid-column: span 1;">
+                    <img src="./assets/crying.png" alt="regular" style="grid-row: 2; grid-column: span 1;">
+                    <img src="./assets/scuba.png" alt="thicc" style="grid-row: 2; grid-column: span 1;">
+                    <img src="./assets/goth.png" alt="ugh-yuck" style="grid-row: 2; grid-column: span 1;">
+                    <img src="./assets/kiss.png" alt="very-happy" style="grid-row: 2; grid-column: span 1;">
+                </div>
+            </div>
+            <div class="spotify-embed">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2QcdPuPJm3jhe78RpTTb87?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+        <section id="roadmap" class="section roadmap">
+            <h2>Roadmap</h2>
+            <div class="timeline">
+                <div class="timeline-item" data-date="L1 2024">
+                    <div class="timeline-icon">🎮</div>
+                    <div class="timeline-content">
+                        <h3>Wifejak online game</h3>
+                        <p>Next-Level Engagement: Play as Wifejak and fight off the bear market for good! (In Progress!)</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-date="L2 2024">
+                    <div class="timeline-icon">🛍️</div>
+                    <div class="timeline-content">
+                        <h3>Online Apparel Store</h3>
+                        <p>Stylish Ventures Ahead: Launching the Wifejak Apparel Store for Unique Wifejak Merch!<br>2% of sales -> buy/burn $wife</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-date="L3 2024">
+                    <div class="timeline-icon">🔧</div>
+                    <div class="timeline-content">
+                        <h3>Decentralized Media Production </h3>
+                        <p>Continuing to produce the highest quality media and content surrounding wifejak and spreading her joy!</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-date="L4 2024">
+                    <div class="timeline-icon">🏆</div>
+                    <div class="timeline-content">
+                        <h3>Growth</h3>
+                        <p>Continued growth and development. Establishment as a leading meme coin on the Solana blockchain.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="twitter-feed" class="section">
+            <h2>Wifejak is all over X @Wifejaksolana</h2>
+            <br>
+            <div class="tweets-container">
+                <div class="twitter-scroll-container">
+                    <a class="twitter-timeline" href="https://twitter.com/Wifejaksolana?ref_src=twsrc%5Etfw">We're all over Twitter</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+            </div>
+        </section>
+         
+          
+    </div>
+    <footer>
+        <p>🌕 2024 Wifejak Coin. Join us on the moon 🌕</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <script>
+        document.getElementById('copy-button').addEventListener('click', () => {
+        const contractAddress = document.getElementById('contract-address').textContent;
+        navigator.clipboard.writeText(contractAddress).then(() => {
+            const copyIcon = document.getElementById('copy-icon');
+            const copiedText = document.getElementById('copied-text');
+            
+            copyIcon.style.display = 'none';
+            copiedText.style.display = 'inline';
+            
+            setTimeout(() => {
+                copyIcon.style.display = 'inline';
+                copiedText.style.display = 'none';
+            }, 2000); // Revert back after 2 seconds
+        });
+    });
+
+    const emojiGrid = document.querySelector('.emoji-grid');
+    const displayArea = document.querySelector('.display-area');
+    const images = displayArea.querySelectorAll('img');
+
+    emojiGrid.addEventListener('click', (e) => {
+        if (e.target.tagName === 'IMG') {
+            const selectedImage = e.target.src;
+            displayArea.style.animation = 'spin 0.5s linear';
+            
+            images.forEach(img => {
+                if (img.src === selectedImage) {
+                    setTimeout(() => {
+                        displayArea.style.animation = '';
+                        img.classList.add('active');
+                    }, 500);
+                } else {
+                    img.classList.remove('active');
+                }
+            });
+        }
+    });
+
+    </script>
+
+    <script>
+        // Create a Matter.js engine
+        const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint } = Matter;
+
+        const engine = Engine.create();
+        const world = engine.world;
+
+        // Create a renderer
+        const render = Render.create({
+            element: document.getElementById('coin-container'),
+            engine: engine,
+            options: {
+                width: window.innerWidth,
+                height: window.innerHeight,
+                wireframes: false,
+                background: 'transparent',
+                pixelRatio: 'auto',
+            }
+        });
+
+        Render.run(render);
+
+        // Create runner
+        const runner = Runner.create();
+        Runner.run(runner, engine);
+
+        // Add coins
+        const coinCount = 15;
+        const coins = [];
+        const coinRadius = 45; // Set a small radius for the coins
+
+        for (let i = 0; i < coinCount; i++) {
+            const coin = Bodies.circle(Math.random() * window.innerWidth, Math.random() * window.innerHeight, coinRadius, {
+                restitution: 1.01, // Bounciness
+                friction: 0.002,
+                density: 0.001,
+                render: {
+                    sprite: {
+                        texture: 'coin.png',
+                        xScale: 0.1, // Scale the image down
+                        yScale: 0.1 // Scale the image down
+                    }
+                }
+            });
+            coins.push(coin);
+        }
+
+        Composite.add(world, coins);
+
+        // Add walls
+        const wallThickness = 50;
+        const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + wallThickness / 2, window.innerWidth, wallThickness, { isStatic: true });
+        const leftWall = Bodies.rectangle(-wallThickness / 2, window.innerHeight / 2, wallThickness, window.innerHeight, { isStatic: true });
+        const rightWall = Bodies.rectangle(window.innerWidth + wallThickness / 2, window.innerHeight / 2, wallThickness, window.innerHeight, { isStatic: true });
+        const ceiling = Bodies.rectangle(window.innerWidth / 2, -wallThickness / 2, window.innerWidth, wallThickness, { isStatic: true });
+
+        Composite.add(world, [ground, leftWall, rightWall, ceiling]);
+
+        // Add mouse control
+        const mouse = Mouse.create(render.canvas);
+        const mouseConstraint = MouseConstraint.create(engine, {
+            mouse: mouse,
+            constraint: {
+                stiffness: 0.7, // Increase stiffness for better dragging interaction
+                render: {
+                    visible: true, // Make the mouse constraint visible for debugging
+                    strokeStyle: '#ffa', // Style the mouse constraint
+                    lineWidth: 2
+                }
+            }
+        });
+
+        Composite.add(world, mouseConstraint);
+
+        // Scaling the canvas to any screen size
+        window.addEventListener('resize', () => {
+            render.canvas.width = window.innerWidth;
+            render.canvas.height = window.innerHeight;
+            Matter.Body.setPosition(ground, { x: window.innerWidth / 2, y: window.innerHeight + wallThickness / 2 });
+            Matter.Body.setPosition(leftWall, { x: -wallThickness / 2, y: window.innerHeight / 2 });
+            Matter.Body.setPosition(rightWall, { x: window.innerWidth + wallThickness / 2, y: window.innerHeight / 2 });
+            Matter.Body.setPosition(ceiling, { x: window.innerWidth / 2, y: -wallThickness / 2 });
+
+            // Remove all coins from the world
+            coins.forEach(coin => {
+                Matter.Composite.remove(world, coin);
+            });
+
+            // Clear the coins array
+            coins.length = 0;
+        });
+
+
+        mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
+        mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
+
+        // Function to handle coin interaction
+        const interactWithCoins = () => {
+            coins.forEach(coin => {
+                coin.render.sprite.xScale = 0.1; // Ensure image scale is maintained
+                coin.render.sprite.yScale = 0.1;
+            });
+        };
+
+        interactWithCoins();
+
+        // Adjust coin positions if they go out of bounds
+        Matter.Events.on(engine, 'afterUpdate', function() {
+            coins.forEach(coin => {
+                if (coin.position.x > window.innerWidth) {
+                    Matter.Body.setPosition(coin, { x: 0, y: coin.position.y });
+                } else if (coin.position.x < 0) {
+                    Matter.Body.setPosition(coin, { x: window.innerWidth, y: coin.position.y });
+                }
+                if (coin.position.y > window.innerHeight) {
+                    Matter.Body.setPosition(coin, { x: coin.position.x, y: 0 });
+                } else if (coin.position.y < 0) {
+                    Matter.Body.setPosition(coin, { x: coin.position.x, y: window.innerHeight });
+                }
+            });
+        });
+
+        // Ensure the coin-container has the correct z-index
+        document.getElementById('coin-container').style.zIndex = '-1';
+
+        // Ensure the coin-container is properly positioned
+        document.getElementById('coin-container').style.position = 'absolute';
+        document.getElementById('coin-container').style.top = '0';
+        document.getElementById('coin-container').style.left = '0';
+        document.getElementById('coin-container').style.width = '100%';
+        document.getElementById('coin-container').style.height = '100%';
+    </script>
+
+</body>
+</html>
