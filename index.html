@@ -20,32 +20,84 @@
             color: #fff;
         }
         header {
-            background: #222;
-            padding: 20px;
-            text-align: center;
+            background: linear-gradient(135deg, #ff69b4, #4b0082);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
         }
-        header h1 {
+        .banner {
+            position: relative;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .banner-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .title-container {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 4rem;
             margin: 0;
-            font-size: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Arial', sans-serif;
             letter-spacing: 2px;
+            animation: glow 2s ease-in-out infinite alternate;
         }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff00de, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #f0f0f0;
+            margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
         nav {
-            background: #444;
-            padding: 10px;
-            text-align: center;
+            background: rgba(94, 135, 145, 0.7);
+            padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
         }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
         nav a {
             color: #fff;
-            margin: 0 15px;
             text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
             font-size: 1.2rem;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            border-radius: 25px;
         }
         nav a:hover {
-            color: #ffa;
+            background: rgba(116, 200, 200, 0.5);
+            transform: translateY(-2px);
         }
         .container {
             padding: 20px;
@@ -59,6 +111,20 @@
             flex-direction: column;
             margin: 40px 0;
         }
+
+        #intro h2 {
+            font-size: 3rem;
+            color: #4b0082;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+            animation: colorShift 5s infinite alternate;
+        }
+        @keyframes colorShift {
+            0% { color: #4b0082; }
+            50% { color: #ff69b4; }
+            100% { color: #4b0082; }
+        }
+
         .section h2 {
             font-size: 2.5rem;
             text-align: center;
@@ -135,6 +201,14 @@
             display: block;
             margin: 0 auto 10px;
         }
+
+        .emoji-board-container .container {
+            background: linear-gradient(135deg, rgba(191, 254, 254, 0.8), rgba(238, 154, 244, 0.8));
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
         .emoji-board-container {
             display: flex;
             flex-direction: column;
@@ -151,7 +225,9 @@
             padding: 20px;
         }
         .emoji-board {
-            flex: 1;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
         }
         .emoji-grid {
             display: grid;
@@ -197,6 +273,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background: linear-gradient(135deg, rgba(191, 254, 254, 0.9), rgba(238, 154, 244, 0.9));
+
         }
         .display-area img {
             width: 100%;
@@ -368,22 +446,23 @@
         .emoji-spotify-flex-container {
             display: flex;
             gap: 30px; /* Space between the emoji board and Spotify embed */
+            align-items: stretch; /* This ensures both children stretch to fill the container height */
         }
 
         .emoji-board, .spotify-embed {
-            flex: 1;
+            flex: 1; /* This makes both elements take up equal space */
+            display: flex;
+            flex-direction: column;
         }
 
         .emoji-board {
-            width: 95%;
-            height:auto;
-            max-width: 125%;
+            width: 100%; /* Ensure full width within its container */
+            max-width: 100%; /* Prevent overflow */
         }
 
         .spotify-embed {
-            width: 95%;
-            height:auto;
-            max-width: 125%;
+            width: 100%; /* Ensure full width within its container */
+            max-width: 100%; /* Prevent overflow */
         }
 
         /* Twitter Scroll Container with Autumn Theme */
@@ -452,6 +531,23 @@
 
 
         @media (max-width: 768px) {
+
+            .banner {
+                height: 200px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            nav a {
+                padding: 8px 12px;
+                font-size: 1rem;
+            }
 
             #contract-address {
                 font-size: 0.7rem; /* Even smaller font size */
@@ -529,13 +625,21 @@
 </head>
 <body>
     <header>
-        <h1>Wifejak Coin ($WIFE) on Solana</h1>
+        <div class="banner">
+            <img src="./assets/banner.jpg" alt="Wifejak Banner" class="banner-image">
+            <div class="title-container">
+                <h1>Wifejak Coin</h1>
+                <p class="subtitle">$WIFE on Solana</p>
+            </div>
+        </div>
     </header>
     <nav>
-        <a href="#intro">Wifejak</a>
-        <a href="#emoji-board">Playground</a>
-        <a href="#features">Features</a>
-        <a href="#roadmap">Roadmap</a>
+        <div class="nav-container">
+            <a href="#intro">Home</a>
+            <a href="#emoji-board">Playground</a>
+            <a href="#features">Features</a>
+            <a href="#roadmap">Roadmap</a>
+        </div>
     </nav>
     <div class="container">
         <section id="intro" class="section">
@@ -549,7 +653,6 @@
                     <span id="copied-text" style="display: none;">Copied!</span>
                 </button>
             </p>
-            <div id="coin-container"></div>
         </section>
         
         <section id="social-links" class="section">
@@ -663,7 +766,7 @@
                     <div class="timeline-icon">🛍️</div>
                     <div class="timeline-content">
                         <h3>Wifejak maker</h3>
-                        <p>Create your very own Wifejak!</p>
+                        <p>Create your own Wifejak from thousands of combinations!</p>
                     </div>
                 </div>
                 <div class="timeline-item" data-date="L3 2024">
