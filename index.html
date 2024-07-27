@@ -16,6 +16,7 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
+            border: none;
             background: linear-gradient(135deg, rgb(191, 254, 254), rgb(238, 154, 244));
             color: #fff;
         }
@@ -74,7 +75,7 @@
         }
 
         nav {
-            background: rgba(94, 135, 145, 0.7);
+            background: rgba(90, 77, 174, 0.7);
             padding: 15px 0;
             position: sticky;
             top: 0;
@@ -140,7 +141,7 @@
             padding: 10px;
             display: inline-block;
             border-radius: 10px;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(76, 41, 151, 0.4);
             margin: 0 auto;
         }
 
@@ -184,7 +185,7 @@
             justify-content: center;
         }
         .feature {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(76, 41, 151, 0.7);
             border-radius: 10px;
             margin: 10px;
             padding: 20px;
@@ -220,12 +221,12 @@
             margin-bottom: 20px;
         }
         .emoji-board-container .container {
-            background: rgba(83, 106, 119, 0.7);
+            background: rgba(76, 41, 151, 0.4);
             border-radius: 10px;
             padding: 20px;
         }
         .emoji-board {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(76, 41, 151, 0.4);
             border-radius: 10px;
             padding: 15px;
         }
@@ -370,10 +371,10 @@
         }
         .timeline-icon {
             position: absolute;
-            top: 20px;
+            top: -10px;
             left: 50%;
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 60px;
             background: #ffa;
             border-radius: 50%;
             text-align: center;
@@ -384,7 +385,7 @@
         }
         .timeline-content {
             padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(76, 41, 151, 0.7);
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             position: relative;
@@ -432,35 +433,16 @@
             background-color: #ffa;
             transform: translateY(-2px);
         }
-        #coin-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
 
-        
         .emoji-spotify-flex-container {
             display: flex;
+            flex-wrap: wrap; /* Allows wrapping of items on smaller screens */
+            justify-content: center; /* Centers the emoji board */
+            align-items: center; /* Aligns items vertically in the center */
             gap: 30px; /* Space between the emoji board and Spotify embed */
-            align-items: stretch; /* This ensures both children stretch to fill the container height */
-        }
-
-        .emoji-board, .spotify-embed {
-            flex: 1; /* This makes both elements take up equal space */
-            display: flex;
-            flex-direction: column;
         }
 
         .emoji-board {
-            width: 100%; /* Ensure full width within its container */
-            max-width: 100%; /* Prevent overflow */
-        }
-
-        .spotify-embed {
             width: 100%; /* Ensure full width within its container */
             max-width: 100%; /* Prevent overflow */
         }
@@ -472,12 +454,12 @@
             min-width: 600px;
             height: 700px;
             overflow-y: scroll;
-            border: 2px solid #de54b7; /* Autumn brown border */
+            border: 2px solid #3971da; /* Autumn brown border */
             border-radius: 10px;
             padding: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin: 0 auto;
-            background: linear-gradient(135deg, rgba(65, 43, 63, 0.8), rgba(164, 105, 215, 0.8)); /* Autumn gradient */
+            background: linear-gradient(135deg, rgba(76, 41, 151, 0.4), rgba(164, 105, 215, 0.8)); /* Autumn gradient */
             backdrop-filter: blur(10px); /* Smooth background */
         }
 
@@ -487,14 +469,14 @@
         }
 
         .twitter-scroll-container::-webkit-scrollbar-track {
-            background: rgba(65, 43, 63, 0.8); /* Darker background for the track */
+            background: rgba(76, 41, 151, 0.4); /* Darker background for the track */
             border-radius: 10px;
         }
 
         .twitter-scroll-container::-webkit-scrollbar-thumb {
             background: rgba(164, 105, 215, 0.8); /* Lighter color for the thumb */
             border-radius: 10px;
-            border: 2px solid #de54b7; /* Border to match the container */
+            border: 2px solid #7b54de; /* Border to match the container */
         }
 
         .twitter-scroll-container::-webkit-scrollbar-thumb:hover {
@@ -504,7 +486,7 @@
         /* Custom Scrollbar for Firefox */
         .twitter-scroll-container {
             scrollbar-width: thin;
-            scrollbar-color: rgba(164, 105, 215, 0.8) rgba(65, 43, 63, 0.8);
+            scrollbar-color: rgba(154, 120, 228, 0.4) rgba(76, 41, 151, 0.8);
         }
 
         /* Twitter Timeline */
@@ -521,14 +503,13 @@
             padding-bottom: 20px;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
-            background: rgba(167, 128, 187, 0.8); /* Autumn orange background */
+            background: rgba(76, 41, 151, 0.6); /* Autumn orange background */
             padding: 10px;
             border-radius: 10px;
             display: inline-block;
             position: relative;
             margin: 0 auto;
         }
-
 
         @media (max-width: 768px) {
 
@@ -618,8 +599,47 @@
             }
         }
 
+    </style>
 
+    <!-- Raining Coins CSS styles -->
+    <style>
+        #coin-rain-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1; /* Position the container behind the rest of the content */
+        }
 
+        .coin {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: url('coin.png'); /* Path to your coin image */
+            background-size: cover;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -25px;
+                opacity: 1;
+            }
+            60% {
+                top: 60%;
+                opacity: 1;
+            }
+            90% {
+                top: 90%;
+                opacity: 0;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
 
     </style>
 </head>
@@ -653,6 +673,7 @@
                     <span id="copied-text" style="display: none;">Copied!</span>
                 </button>
             </p>
+            <div id="coin-rain-container"></div> <!--div id="coin-container"></div-->
         </section>
         
         <section id="social-links" class="section">
@@ -721,9 +742,6 @@
                         <img src="./assets/Kirby WIfejak.png" alt="very-happy" style="grid-row: 2; grid-column: span 1;">
                     </div>
                 </div>
-                <div class="spotify-embed">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2QcdPuPJm3jhe78RpTTb87?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
             </div>
         </section>
         
@@ -743,7 +761,7 @@
                 <div class="feature">
                     <img src="very-happy.png" alt="Very Happy">
                     <h3>Long-Term Team</h3>
-                    <p>A team that loves wifejak and has grown together over month of dedicated hard work.</p>
+                    <p>A team that loves wifejak and has grown together over months of dedicated hard work.</p>
                 </div>
             </div>
             <br>
@@ -756,28 +774,36 @@
             <h2>Roadmap</h2>
             <div class="timeline">
                 <div class="timeline-item" data-date="L1 2024">
-                    <div class="timeline-icon">🎮</div>
+                    <div class="timeline-icon">
+                        <img src="./assets/zelda.png" alt="Wifejak Game" style="width: 100%; height: 100%; border-radius: 50%;">
+                    </div>
                     <div class="timeline-content">
                         <h3>Wifejak online game</h3>
                         <p>Go on a shopping spree as Wifejak while fighting off the bear market for good! (Coming Soon!)</p>
                     </div>
                 </div>
                 <div class="timeline-item" data-date="L2 2024">
-                    <div class="timeline-icon">🛍️</div>
+                    <div class="timeline-icon">
+                        <img src="./assets/Crypto Wifejak.png" alt="Wifejak Maker" style="width: 100%; height: 100%; border-radius: 50%;">
+                    </div>
                     <div class="timeline-content">
                         <h3>Wifejak maker</h3>
                         <p>Create your own Wifejak from thousands of combinations!</p>
                     </div>
                 </div>
                 <div class="timeline-item" data-date="L3 2024">
-                    <div class="timeline-icon">🔧</div>
+                    <div class="timeline-icon">
+                        <img src="./assets/artist.png" alt="Wifejak Media" style="width: 100%; height: 100%; border-radius: 50%;">
+                    </div>
                     <div class="timeline-content">
                         <h3>Decentralized Media Production </h3>
                         <p>Continue building the wifejack universe focusing on high quality media to spread her joy!</p>
                     </div>
                 </div>
                 <div class="timeline-item" data-date="L4 2024">
-                    <div class="timeline-icon">🏆</div>
+                    <div class="timeline-icon">
+                        <img src="./assets/Pepe Office Wifejak.png" alt="Wifejak Growth" style="width: 100%; height: 100%; border-radius: 50%;">
+                    </div>
                     <div class="timeline-content">
                         <h3>Growth</h3>
                         <p>Continued growth and development. Establishment as a leading meme coin on the Solana blockchain.</p>
@@ -846,137 +872,28 @@
 
     </script>
 
+    <!-- Raining coins code -->
     <script>
-        // Create a Matter.js engine
-        const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint } = Matter;
-
-        const engine = Engine.create();
-        const world = engine.world;
-
-        // Create a renderer
-        const render = Render.create({
-            element: document.getElementById('coin-container'),
-            engine: engine,
-            options: {
-                width: window.innerWidth,
-                height: window.innerHeight,
-                wireframes: false,
-                background: 'transparent',
-                pixelRatio: 'auto',
+        document.addEventListener('DOMContentLoaded', () => {
+            const coinRainContainer = document.getElementById('coin-rain-container');
+        
+            function createCoin() {
+                const coin = document.createElement('div');
+                coin.classList.add('coin');
+                coin.style.left = `${Math.random() * 100}%`;
+                coin.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random fall speed between 2s and 5s
+                coin.style.opacity = Math.random(); // Random opacity for a variety effect
+                coinRainContainer.appendChild(coin);
+        
+                // Remove coin after animation to prevent overflow
+                setTimeout(() => {
+                    coin.remove();
+                }, 5000); // Match this duration with the max animation time
             }
+        
+            // Create coins at regular intervals
+            setInterval(createCoin, 300); // Adjust the interval to control the density of coins
         });
-
-        Render.run(render);
-
-        // Create runner
-        const runner = Runner.create();
-        Runner.run(runner, engine);
-
-        // Add coins
-        const coinCount = 15;
-        const coins = [];
-        const coinRadius = 45; // Set a small radius for the coins
-
-        for (let i = 0; i < coinCount; i++) {
-            const coin = Bodies.circle(Math.random() * window.innerWidth, Math.random() * window.innerHeight, coinRadius, {
-                restitution: 1.01, // Bounciness
-                friction: 0.002,
-                density: 0.001,
-                render: {
-                    sprite: {
-                        texture: 'coin.png',
-                        xScale: 0.1, // Scale the image down
-                        yScale: 0.1 // Scale the image down
-                    }
-                }
-            });
-            coins.push(coin);
-        }
-
-        Composite.add(world, coins);
-
-        // Add walls
-        const wallThickness = 50;
-        const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + wallThickness / 2, window.innerWidth, wallThickness, { isStatic: true });
-        const leftWall = Bodies.rectangle(-wallThickness / 2, window.innerHeight / 2, wallThickness, window.innerHeight, { isStatic: true });
-        const rightWall = Bodies.rectangle(window.innerWidth + wallThickness / 2, window.innerHeight / 2, wallThickness, window.innerHeight, { isStatic: true });
-        const ceiling = Bodies.rectangle(window.innerWidth / 2, -wallThickness / 2, window.innerWidth, wallThickness, { isStatic: true });
-
-        Composite.add(world, [ground, leftWall, rightWall, ceiling]);
-
-        // Add mouse control
-        const mouse = Mouse.create(render.canvas);
-        const mouseConstraint = MouseConstraint.create(engine, {
-            mouse: mouse,
-            constraint: {
-                stiffness: 0.7, // Increase stiffness for better dragging interaction
-                render: {
-                    visible: true, // Make the mouse constraint visible for debugging
-                    strokeStyle: '#ffa', // Style the mouse constraint
-                    lineWidth: 2
-                }
-            }
-        });
-
-        Composite.add(world, mouseConstraint);
-
-        // Scaling the canvas to any screen size
-        window.addEventListener('resize', () => {
-            render.canvas.width = window.innerWidth;
-            render.canvas.height = window.innerHeight;
-            Matter.Body.setPosition(ground, { x: window.innerWidth / 2, y: window.innerHeight + wallThickness / 2 });
-            Matter.Body.setPosition(leftWall, { x: -wallThickness / 2, y: window.innerHeight / 2 });
-            Matter.Body.setPosition(rightWall, { x: window.innerWidth + wallThickness / 2, y: window.innerHeight / 2 });
-            Matter.Body.setPosition(ceiling, { x: window.innerWidth / 2, y: -wallThickness / 2 });
-
-            // Remove all coins from the world
-            coins.forEach(coin => {
-                Matter.Composite.remove(world, coin);
-            });
-
-            // Clear the coins array
-            coins.length = 0;
-        });
-
-
-        mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
-        mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
-
-        // Function to handle coin interaction
-        const interactWithCoins = () => {
-            coins.forEach(coin => {
-                coin.render.sprite.xScale = 0.1; // Ensure image scale is maintained
-                coin.render.sprite.yScale = 0.1;
-            });
-        };
-
-        interactWithCoins();
-
-        // Adjust coin positions if they go out of bounds
-        Matter.Events.on(engine, 'afterUpdate', function() {
-            coins.forEach(coin => {
-                if (coin.position.x > window.innerWidth) {
-                    Matter.Body.setPosition(coin, { x: 0, y: coin.position.y });
-                } else if (coin.position.x < 0) {
-                    Matter.Body.setPosition(coin, { x: window.innerWidth, y: coin.position.y });
-                }
-                if (coin.position.y > window.innerHeight) {
-                    Matter.Body.setPosition(coin, { x: coin.position.x, y: 0 });
-                } else if (coin.position.y < 0) {
-                    Matter.Body.setPosition(coin, { x: coin.position.x, y: window.innerHeight });
-                }
-            });
-        });
-
-        // Ensure the coin-container has the correct z-index
-        document.getElementById('coin-container').style.zIndex = '-1';
-
-        // Ensure the coin-container is properly positioned
-        document.getElementById('coin-container').style.position = 'absolute';
-        document.getElementById('coin-container').style.top = '0';
-        document.getElementById('coin-container').style.left = '0';
-        document.getElementById('coin-container').style.width = '100%';
-        document.getElementById('coin-container').style.height = '100%';
     </script>
 
 </body>
