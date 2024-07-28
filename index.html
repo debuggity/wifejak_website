@@ -51,7 +51,8 @@
 
         h1 {
             font-size: 4rem;
-            margin: 0;
+            margin-top: 210px;
+            margin-bottom: auto;
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             font-family: 'Arial', sans-serif;
@@ -114,7 +115,7 @@
         }
 
         #intro h2 {
-            font-size: 3rem;
+            font-size: 4rem;
             color: #4b0082;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
@@ -154,22 +155,28 @@
         }
 
         #copy-button {
-            background-color: #ffa;
+            background-color: #655fa3;
             border: none;
-            color: #222;
-            padding: 5px 10px;
+            color: #fff;
+            padding: 10px 15px;
             font-size: 1rem;
             font-weight: bold;
-            margin-left: 10px;
-            border-radius: 5px;
+            margin-left: 1px;
+            border-radius: 15px;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
-            vertical-align: middle;
+            display: inline-flex;
+            align-items: center;
         }
 
         #copy-button:hover {
-            background-color: rgb(202, 202, 157);
+            background-color: #987df1;
         }
+
+        #copy-icon, #copied-text {
+            margin-left: 0px;
+        }
+
 
         #copy-icon {
             display: inline;
@@ -519,6 +526,7 @@
 
             h1 {
                 font-size: 2.5rem;
+                margin-top: 150px;
             }
 
             .subtitle {
@@ -529,17 +537,7 @@
                 padding: 8px 12px;
                 font-size: 1rem;
             }
-
-            #contract-address {
-                font-size: 0.7rem; /* Even smaller font size */
-            }
-
-            #copy-button {
-                padding: 4px 6px;
-                font-size: 0.7rem; /* Smaller font size */
-                margin-left: 4px;
-            }
-
+            
             .twitter-scroll-container {
                 max-width: 500px;
                 scale:70%;
@@ -649,7 +647,6 @@
             <img src="./assets/banner.jpg" alt="Wifejak Banner" class="banner-image">
             <div class="title-container">
                 <h1>Wifejak Coin</h1>
-                <p class="subtitle">$WIFE on Solana</p>
             </div>
         </div>
     </header>
@@ -663,16 +660,17 @@
     </nav>
     <div class="container">
         <section id="intro" class="section">
-            <h2>Wifejak ($wife)</h2>
+            <h2>Wifejak</h2>
             <p>The original Wifejak memecoin on Solana!</p>
             <img src="so-happy-gif.gif" alt="So Happy Gif" style="max-width: 100%; border-radius: 10px; margin: 20px 0;">
             <p>
-                CA: <span id="contract-address">4y3oUrsJfSp431R3wJrWiaLxRPsnYtpkVJmoV2bYpBiy</span>
+                <span id="copy-text">Contract Address</span>
+                <span id="contract-address" style="display: none;">4y3oUrsJfSp431R3wJrWiaLxRPsnYtpkVJmoV2bYpBiy</span>
                 <button id="copy-button">
                     <span id="copy-icon">📋</span>
                     <span id="copied-text" style="display: none;">Copied!</span>
                 </button>
-            </p>
+            </p>            
             <div id="coin-rain-container"></div> <!--div id="coin-container"></div-->
         </section>
         
@@ -833,43 +831,42 @@
 
     <script>
         document.getElementById('copy-button').addEventListener('click', () => {
-        const contractAddress = document.getElementById('contract-address').textContent;
-        navigator.clipboard.writeText(contractAddress).then(() => {
-            const copyIcon = document.getElementById('copy-icon');
-            const copiedText = document.getElementById('copied-text');
-            
-            copyIcon.style.display = 'none';
-            copiedText.style.display = 'inline';
-            
-            setTimeout(() => {
-                copyIcon.style.display = 'inline';
-                copiedText.style.display = 'none';
-            }, 2000); // Revert back after 2 seconds
-        });
-    });
-
-    const emojiGrid = document.querySelector('.emoji-grid');
-    const displayArea = document.querySelector('.display-area');
-    const images = displayArea.querySelectorAll('img');
-
-    emojiGrid.addEventListener('click', (e) => {
-        if (e.target.tagName === 'IMG') {
-            const selectedImage = e.target.src;
-            displayArea.style.animation = 'spin 0.5s linear';
-            
-            images.forEach(img => {
-                if (img.src === selectedImage) {
-                    setTimeout(() => {
-                        displayArea.style.animation = '';
-                        img.classList.add('active');
-                    }, 500);
-                } else {
-                    img.classList.remove('active');
-                }
+            const contractAddress = document.getElementById('contract-address').textContent;
+            navigator.clipboard.writeText(contractAddress).then(() => {
+                const copyIcon = document.getElementById('copy-icon');
+                const copiedText = document.getElementById('copied-text');
+                
+                copyIcon.style.display = 'none';
+                copiedText.style.display = 'inline';
+                
+                setTimeout(() => {
+                    copyIcon.style.display = 'inline';
+                    copiedText.style.display = 'none';
+                }, 2000); // Revert back after 2 seconds
             });
-        }
-    });
+        });
 
+        const emojiGrid = document.querySelector('.emoji-grid');
+        const displayArea = document.querySelector('.display-area');
+        const images = displayArea.querySelectorAll('img');
+
+        emojiGrid.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG') {
+                const selectedImage = e.target.src;
+                displayArea.style.animation = 'spin 0.5s linear';
+                
+                images.forEach(img => {
+                    if (img.src === selectedImage) {
+                        setTimeout(() => {
+                            displayArea.style.animation = '';
+                            img.classList.add('active');
+                        }, 500);
+                    } else {
+                        img.classList.remove('active');
+                    }
+                });
+            }
+        });
     </script>
 
     <!-- Raining coins code -->
@@ -895,6 +892,5 @@
             setInterval(createCoin, 300); // Adjust the interval to control the density of coins
         });
     </script>
-
 </body>
 </html>
